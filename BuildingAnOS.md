@@ -14,7 +14,7 @@
 ._____________.                      ._______________.
 |             |                      |               |
 | MAIN BOARD  |                      | HARD DRIVE    |
-|             |----------------------|               |_________
+|             |______________________|               |_________
 | - BIOS      |                      | - Partitions  |         \
 |             |                      | (GRUB, files) |          \
 |_____________|                      |_______________|           \
@@ -95,7 +95,7 @@ Software needed:
 | ASSEMBLY LOADER  |                      | KERNEL(cpp)    |
 |                  | -------------------> |                |
 | - Sets stack ptr |                      |                |
-| - then jump to   |                      |                |
+| - then jumps to  |                      |                |
 |   the kernel     |                      |________________|
 |__________________|                               |
          |                                         |                                                     
@@ -156,14 +156,65 @@ RAM:
 
 &nbsp;
 
-To communicate with hardware everything needs to be byte-perfect.
+To communicate with hardware everything needs to be **byte-perfect**.
 
-TODO
+To make this communication happen we need to write an **interrupt descriptor table**. An IDT contains the information for example for a keyboard interrupt so it will switch the memory segment to kernel space and switch the access rights. But we haven't defined what a **segment** is, this is done with a **global descriptor table**. A GDT will hold information about the segments, it will hold the starting point of a segment, the length of the segment and **flags** which holds data about the information of the segments (code, data, allowed to jump, executables, ..).
+
+```
+
+RAM:
+
+           Kernel space                                      User space
+ /-------------------------------\               /-------------------------------\
+ | code segment  | data segment  |               | code segment  | data segment  |
+_._______._______._______._______._______._______._______._______._______._______._
+ |       |       |       |       |       |       |       |       |       |       |
+ |       |       |       |       |       |       | code  |  code |       |       |
+ |       |       |       |       |       |       |       |       |       |       |
+_|_______|_______|_______|_______|_______|_______|_______|_______|_______|_______|_
+   ^  |
+   |  |
+   |  |
+   |  |
+   |  |
+   |  |
+   |  |
+   |  |
+   |  |
+   |  |
+   |  |
+   |  |
+.__________________.                      .________________.                 .___________.
+|                  |                      |                |                 |           |
+|      IDT         |                      |      CPU       | <---------------| Keyboard  |
+|                  | <------------------  |                |                 |___________|
+| -Jump to k-space |                      |                |                
+|                  |                      |________________|
+|__________________|                               
 
 ```
 
+&nbsp;
 
+###GDT
+
+&nbsp;
+
+A GDT entry is **8 bytes** long, the laast 16 bits are for the length limit for example 1024 bytes. The first, fourth, fifth and sixth are for the pointer. The third byte is for access rights and the second is divided into two halfbytes, one for the length limit and one for the flags.
+
+So this is pure chaos and you will to fill the GDT manually.
 
 ```
+
+     limit and flags
+            |
+._______._______._______._______._______._______._______._______.
+|       |       |       |       |       |       |       |       |
+|  PTR  | L | F | accss |  PTR  |  PTR  |  PTR  | lnght | lngth |
+|       |   |   | rghts |       |       |       | limit | limit |
+|_______|_______|_______|_______|_______|_______|_______|_______|
+
+```
+
 
 &nbsp;

@@ -11,7 +11,7 @@ GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-excep
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = loader.o kernel.o
+objects = loader.o GDT.o kernel.o
 
 
 
@@ -37,8 +37,10 @@ kernel.iso: kernel.bin
 	echo '	boot' >> iso/boot/grub/grub.cfg
 	echo '}' >> iso/boot/grub/grub.cfg
 	grub2-mkrescue --output=$@ iso
-	rm -rf iso kernel.o kernel.bin loader.o
 
-run: kernel.iso
+clean:
+	rm -rf iso kernel.o kernel.bin loader.o GDT.o
+
+run: kernel.iso clean
 	(killall VirtualBox && sleep 2) || true
 	VirtualBox --startvm "SEVAHO_OS" &
