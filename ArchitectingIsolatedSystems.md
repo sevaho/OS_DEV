@@ -26,7 +26,7 @@ Just as **chroot** allows processes to see any arbitrary directory as the root o
 
 &nbsp;
 
-```html
+```
 
 ._____________.                      ._______________.                           
 |             |                      |               |           

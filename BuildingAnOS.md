@@ -158,7 +158,7 @@ RAM:
 
 To communicate with hardware everything needs to be **byte-perfect**.
 
-To make this communication happen we need to write an **interrupt descriptor table**. An IDT contains the information for example for a keyboard interrupt so it will switch the memory segment to kernel space and switch the access rights. But we haven't defined what a **segment** is, this is done with a **global descriptor table**. A GDT will hold information about the segments, it will hold the starting point of a segment, the length of the segment and **flags** which holds data about the information of the segments (code, data, allowed to jump, executables, ..).
+To make this communication happen we need to write an **interrupt descriptor table** to talk to the **programmable interrupt controller**. An IDT contains the information for example for a keyboard interrupt so it will switch the memory segment to kernel space and switch the access rights. But we haven't defined what a **segment** is, this is done with a **global descriptor table**. A GDT will hold information about the segments, it will hold the starting point of a segment, the length of the segment and **flags** which holds data about the information of the segments (code, data, allowed to jump, executables, ..).
 
 ```
 
@@ -202,7 +202,7 @@ _|_______|_______|_______|_______|_______|_______|_______|_______|_______|______
 
 A GDT entry is **8 bytes** long, the laast 16 bits are for the length limit for example 1024 bytes. The first, fourth, fifth and sixth are for the pointer. The third byte is for access rights and the second is divided into two halfbytes, one for the length limit and one for the flags.
 
-So this is pure chaos and you will to fill the GDT manually.
+So this is pure chaos and you will need to fill the GDT manually.
 
 ```
 
@@ -213,6 +213,29 @@ So this is pure chaos and you will to fill the GDT manually.
 |  PTR  | L | F | accss |  PTR  |  PTR  |  PTR  | lnght | lngth |
 |       |   |   | rghts |       |       |       | limit | limit |
 |_______|_______|_______|_______|_______|_______|_______|_______|
+
+```
+
+###PIC
+
+&nbsp;
+
+The programmable interrupt controller is a device that is used to combine several sources of interrupt onto one or more **CPU lines**. We have to send data to the PIC to obtain interrupts from the keyboard. Technically the CPU has a **multiplexer** and a **demultiplexer** which are connected to different hardware. You can put a number into a multiplexer and it will then talk to the hardware with that **port**, for example PIC has number 32 (0x20).
+
+```
+
+.__________________.                      .________________.        .___________.
+|                  |                      |                |        |           |
+|      CPU         |                      |      PIC       | <------| Keyboard  |
+|                  | -----MPLEX---------> |                |        |___________|
+|                  |        |             |                |                
+|                  | -----DMPLEX--------> |________________|
+|__________________|        |       |
+                            |       |
+                            |       |
+                             \       \                
+                              \       \                  
+                             other hardware                  
 
 ```
 
