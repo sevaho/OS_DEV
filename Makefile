@@ -7,18 +7,20 @@
 
 #Parameters
 
-GCCPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore
+GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wno-write-strings
 ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-objects = loader.o GDT.o kernel.o port.o
+objects = obj/loader.o obj/gdt.o obj/kernel.o obj/port.o obj/interrupts.o obj/interruptsAsm.o obj/keyboard.o
 
 
 
-%.o: %.cpp
+obj/%.o: src/%.cpp
+	mkdir -p $(@D)
 	gcc $(GCCPARAMS) -c -o $@ $<
 
-%.o: %.s
+obj/%.o: src/%.s
+	mkdir -p $(@D)
 	as $(ASPARAMS) -o $@ $<
 
 kernel.bin: linker.ld $(objects)
@@ -39,7 +41,7 @@ kernel.iso: kernel.bin
 	grub2-mkrescue --output=$@ iso
 
 clean:
-	rm -rf iso $(objects) kernel.bin
+	rm -rf iso $(objects) kernel.bin obj
 
 run: kernel.iso clean
 	(killall VirtualBox && sleep 2) || true
