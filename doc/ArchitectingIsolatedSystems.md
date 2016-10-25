@@ -18,6 +18,8 @@ http://rhelblog.redhat.com/2015/07/29/architecting-containers-part-1-user-space-
 
 https://www.toptal.com/linux/separation-anxiety-isolating-your-system-with-linux-namespaces
 
+https://github.com/docker/labs/blob/master/security/userns/README.md
+
 Just as **chroot** allows processes to see any arbitrary directory as the root of the system (independent of the rest of the processes), Linux namespaces allow other aspects of the operating system to be independently modified as well. This includes the process tree, networking interfaces, mount points, inter-process communication resources and more.
 
 &nbsp;

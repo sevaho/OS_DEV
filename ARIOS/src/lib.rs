@@ -7,7 +7,8 @@ extern crate rlibc;
 pub extern fn rust_main() {
     // ATTENTION: we have a very small stack and no guard page
 
-    let hello = b"Hello World!";
+    let hello = b"test2!";
+
     let color_byte = 0x1f; // white foreground, blue background
 
     let mut hello_colored = [color_byte; 24];

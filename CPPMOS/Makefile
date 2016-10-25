@@ -44,5 +44,7 @@ clean:
 	rm -rf iso $(objects) kernel.bin obj
 
 run: kernel.iso clean
-	(killall VirtualBox && sleep 2) || true
-	VirtualBox --startvm "SEVAHO_OS" &
+	# (killall VirtualBox && sleep 2) || true
+	# VirtualBox --startvm "SEVAHO_OS" &
+	killall qemu-system-x86_64 && sleep 1 || true
+	qemu-system-x86_64 -cdrom kernel.iso

@@ -30,8 +30,10 @@ clean:
 cargo:
 	cargo build --target=x86_64-unknown-linux-gnu
 
+virtualbox: arios-x86_64.iso clean
+	(killall VirtualBox && sleep 1) || true
+	VirtualBox --startvm "REDOX" &
+
 run: arios-x86_64.iso clean
 	killall qemu-system-x86_64 && sleep 1 || true
 	qemu-system-x86_64 -cdrom arios-x86_64.iso
-	# (killall VirtualBox && sleep 1) || true
-	# VirtualBox --startvm "REDOX" &

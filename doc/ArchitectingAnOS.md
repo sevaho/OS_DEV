@@ -63,7 +63,9 @@ NOTE: GRUB is here the main bootloader, but for making your own OS it is common 
 
 &nbsp;
 
-TODO
+Also called the **program counter**, instruction address register or instruction counter,
+
+https://en.wikipedia.org/wiki/Program_counter
 
 &nbsp;
 
@@ -71,7 +73,13 @@ TODO
 
 &nbsp;
 
-TODO
+The stack pointer stores the **address** of the most recent entry that was pushed onto the **stack**.
+
+To push a value onto the stack, the stack pointer is incremented to point to the next physical memory address, and the new value is copied to that address in memory.
+
+To pop a value from the stack, the value is copied from the address of the stack pointer, and the stack pointer is decremented, pointing it to the next available item in the stack.
+
+The most typical use of a hardware stack is to store the return address of a subroutine call. When the subroutine is finished executing, the return address is popped off the top of the stack and placed in the Program Counter register, causing the processor to resume execution at the next instruction following the call to the subroutine.
 
 &nbsp;
 
@@ -246,16 +254,23 @@ The programmable interrupt controller is a device that is used to combine severa
 
 &nbsp;
 
-The GDT entry contains a pointer, an interrupt, a handler, flags, acces rights and a segment.
+TODO
 
 ```
 
-     limit and flags
-            |
-._______._______._______._______._______._______._______._______.
-|       |       |       |       |       |       |       |       |
-|  PTR  | L | F | accss |  PTR  |  PTR  |  PTR  | lnght | lngth |
-|       |   |   | rghts |       |       |       | limit | limit |
-|_______|_______|_______|_______|_______|_______|_______|_______|
+
+
+```
+
+&nbsp;
+
+##Networking
+
+&nbsp;
+
+TODO
+
+```
+
 
 ```
