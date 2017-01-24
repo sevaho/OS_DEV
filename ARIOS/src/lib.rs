@@ -8,6 +8,7 @@ pub extern fn rust_main() {
     // ATTENTION: we have a very small stack and no guard page
 
     let hello = b"test2!";
+    printf!("test");
 
     let color_byte = 0x1f; // white foreground, blue background
 
