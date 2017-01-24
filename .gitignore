@@ -31,4 +31,8 @@
 # ISO
 *.iso
 
+# VIM
+*.swp
+*.swo
+
 
