@@ -6,7 +6,7 @@ In this repo I learn about operating systems, how they work and how to build one
 
 ####CPPMOS:
 
-This is the beginning of an operating system written in c++, I used guides and youtube videos to make the beginning, this is not working properly.
+This is the beginning of an operating system written in c++, I used guides and Youtube videos to make the beginning, this is not working properly.  
 
 ####ARIOS:
 
@@ -14,7 +14,7 @@ Very small beginning of an operating system written in Rust, followed a tutorial
 
 ####MYOS:
 
-As the name says this is my very own OS writtin in C, it is still small.
+As the name says this is my very own OS written in C, it is still small.
 
 DOC:
 
