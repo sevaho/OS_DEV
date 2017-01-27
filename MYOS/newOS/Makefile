@@ -15,9 +15,10 @@ objects = obj/loader.o \
 
 all:
 
-obj/%.o: src/%.nasm
+obj/%.o: src/%.s
 	mkdir -p $(@D)
-	nasm $(NASMPARAMS) $< -o $@
+	#nasm $(NASMPARAMS) $< -o $@
+	as --32 -o $@ $<
 
 obj/%.o: src/%.c
 	gcc $(GCCPARAMS) $< -o $@

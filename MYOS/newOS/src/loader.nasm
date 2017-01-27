@@ -17,9 +17,10 @@ align 4
 kernel_stack:
   resb KERNEL_STACK_SIZE
 
-mov esp, kernel_stack + KERNEL_STACK_SIZE
 
 loader:
-  mov eax, 0xCAFEBABE
+  mov esp, kernel_stack + KERNEL_STACK_SIZE
+  push eax
+  push ebx
+  call kmain
 
-jmp $

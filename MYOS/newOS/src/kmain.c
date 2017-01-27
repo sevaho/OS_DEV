@@ -6,10 +6,14 @@ void write(unsigned int i, char c, unsigned char fg, unsigned char bg){
 
 #define GREEN 2
 #define GREY  8
-int main(){
+void kmain(){
 
-  write(0,'A',GREEN,GREY);
-  return 0;
+  write(0,'T',GREEN,GREY);
+  write(2,'E',GREEN,GREY);
+  write(4,'S',GREEN,GREY);
+  write(6,'T',GREEN,GREY);
+
+  while(1);
 	
 }
 
