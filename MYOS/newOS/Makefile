@@ -39,6 +39,9 @@ kernel.iso: kernel.bin
 	echo '}' >> iso/boot/grub/grub.cfg
 	grub2-mkrescue --output=$@ iso
 
+run: kernel.iso clean	
+	qemu-system-i386 -cdrom kernel.iso
+
 clean:
 	rm -rf iso $(objects) kernel.bin obj
 
