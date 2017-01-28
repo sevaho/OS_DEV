@@ -10,8 +10,8 @@ void kmain(){
 
   write(0,'T',GREEN,GREY);
   write(2,'E',GREEN,GREY);
-  write(4,'S',GREEN,GREY);
   write(6,'T',GREEN,GREY);
+  write(8,'S',GREEN,GREY);
 
   while(1);
 	
